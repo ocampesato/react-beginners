@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>The ReactJS Lifecycle</title>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+  </script>
+ </head>
+
+ <body>
+  <div id="userinfo"></div>
+
+  <script type="text/babel">
+    class UserInfo extends React.Component {
+       constructor() {
+          super();
+       }
+
+       doSomething() {
+console.log("The doSomething method...");
+       }
+       handleClick() {
+console.log("The handleClick method...");
+       }
+       getInitialState() {
+console.log("The getInitialState method...");
+           return {
+              userinfo : "" 
+           }
+       }
+       getDefaultProps() {
+console.log("The getDefaultProps method...");
+       }
+       componentWillMount() {
+console.log("The componentWillMount method...");
+           this.doSomething();
+       }
+       componentDidMount() {
+console.log("The componentDidMount method...");
+           this.doSomething();
+       }
+       render() {
+           return (
+              <div></div>
+           );
+       }
+    }
+       
+    ReactDOM.render(
+      <UserInfo url="https://github.com/ocampesato" />,
+                document.getElementById('userinfo'));
+  </script>
+ </body>
+</html>
+

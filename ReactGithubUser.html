@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Github and ReactJS</title>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js">
+  </script>
+ </head>
+ 
+ <body>
+  <h3>Github User Details:</h3>
+  <div id="userinfo"></div>
+  
+  <script type="text/babel">
+    class UserInfo extends React.Component {
+      constructor() {
+         super();
+      }
+
+      componentWillMount() {
+        this.state = { loading: true, error: null, data: null};
+      }
+ 
+      componentDidMount() {
+        this.props.promise.then(
+          value => this.setState({loading: false, data: value}),
+          error => this.setState({loading: false, error: error}));
+      }
+    
+      render() {
+        if (this.state.loading) {
+          return <span>Loading...</span>;
+        }
+        else if (this.state.error !== null) {
+          return <span>Error: {this.state.error.message}</span>;
+        }
+        else {
+          var userInfo = this.state.data;
+
+          return (
+            <div>
+              <li>Username:   {userInfo.login}     </li>
+              <li>Followers:  {userInfo.followers} </li>
+              <li>Following:  {userInfo.following} </li>
+              <li>Created at: {userInfo.created_at}</li>
+            </div>
+          )
+        }
+      }
+    }
+
+    ReactDOM.render(
+      <UserInfo
+        promise={$.getJSON('https://api.github.com/users/ocampesato')} />,
+      document.getElementById("userinfo")
+    );
+  </script>
+ </body>
+</html>
+

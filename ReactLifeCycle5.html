@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>ReactJS</title>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+  </script>
+ </head>
+
+ <body>
+  <div id="container"></div>
+
+  <script type="text/babel">
+    let Mixin = InnerComponent => class extends React.Component { 
+       constructor() {
+          super();
+          this.update = this.update.bind(this); 
+          this.state = {count: 0} 
+       }  
+
+       update() {
+         this.setState({count: this.state.count + 1}) 
+       }  
+
+       componentWillMount() {
+         console.log("will mount");
+       }  
+
+       render() {
+           return <InnerComponent
+              update={this.update}
+              {...this.state}
+              {...this.props} />
+       }  
+
+       componentDidMount() {
+         console.log("did mount");
+       }  
+    }
+
+    const Button = (props) => <button onClick={props.update}>
+                                 {props.txt} - {props.count}
+                              </button>
+
+    const Label  = (props) => <label onMouseMove={props.update}>
+                                 {props.txt} - {props.count}
+                              </label>
+
+    let ButtonMixed = Mixin(Button) 
+    let LabelMixed  = Mixin(Label) 
+
+    class App extends React.Component {
+       render() {
+           return (
+              <div>
+                <ButtonMixed txt="Button" />
+                <LabelMixed txt="Label" />
+              </div>
+           );
+       }
+    }
+       
+    App.defaultProps = { count: 0, txt : "button" };
+
+    ReactDOM.render(<App />,  
+                document.getElementById('container'));
+  </script>
+ </body>
+</html>
+

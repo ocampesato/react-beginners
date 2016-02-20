@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Hello World with children in ReactJS</title>
+
+  <!-- The core React library -->
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <!-- The ReactDOM Library -->
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+
+  <!-- The Babel Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+  </script>
+ </head>
+ 
+ <body>
+  <div id="hello"></div>
+  
+  <script type="text/babel">
+    var Hello = React.createClass({
+      render: function () {
+          var name = this.props.name;
+
+          return (
+            <div>
+              <h2>Hello {name}</h2>
+              <h2>{this.props.children}</h2>
+            </div>
+          );
+      }
+    });
+
+    ReactDOM.render(<Hello name="Dave">more stuff here</Hello>, 
+                           document.getElementById('hello'));
+  </script>
+ </body>
+</html>
+

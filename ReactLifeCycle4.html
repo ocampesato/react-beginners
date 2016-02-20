@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>ReactJS</title>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+  </script>
+ </head>
+
+ <body>
+  <div id="container"></div>
+
+  <script type="text/babel">
+    class App extends React.Component {
+       constructor() {
+          super();
+          this.update = this.update.bind(this); 
+          this.state = {increasing: false} 
+       }  
+       componentWillReceiveProps(nextProps) {
+         this.setState({increasing: nextProps.count >this.props.count})
+       }  
+
+       shouldComponentUpdate(nextProps, nextState) {
+         return nextProps.count % 3 === 0;
+       }  
+
+       componentDidUpdate(prevProps, prevState) {
+         console.log("prevProps: ",prevProps);
+       }  
+
+       update() {
+          ReactDOM.render(
+             <App count={this.props.count+1} />,
+                  document.getElementById('container')
+          );
+       }  
+
+       render() {
+           console.log(this.state.increasing)
+           return (
+              <button onClick={this.update}>
+                 {this.props.count}
+              </button>)
+       }
+    }
+       
+    App.defaultProps = { count : 0 };
+
+    ReactDOM.render(<App />,  
+                document.getElementById('container'));
+  </script>
+ </body>
+</html>
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>The ReactJS Lifecycle</title>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+  </script>
+ </head>
+
+ <body>
+  <div id="userinfo"></div>
+
+  <script type="text/babel">
+    class App extends React.Component {
+       constructor() {
+          super();
+          this.state  = { count : 0 };
+          this.update = this.update.bind(this); 
+       }  
+
+       update() {
+          this.setState({ count: this.state.count+ 1 })
+       } 
+       componentWillMount() {
+          console.log("componentWillMount");
+       }
+       componentDidMount() {
+          console.log("componentDidMount");
+       }
+       componentWillUnmount() {
+          console.log("componentWillUnmount");
+       }
+       render() {
+           console.log("rendering button...");
+           return (
+              <button onClick={this.update}>{this.state.count}</button>
+           );
+       }
+    }
+       
+    class Wrapper extends React.Component {
+       constructor() {
+          super();
+       }  
+
+       mount() {
+          ReactDOM.render(<App />, 
+                document.getElementById('comp'));
+       }
+
+       unmount() {
+          ReactDOM.unmountComponentAtNode(
+                document.getElementById('comp'));
+       }
+
+       render() {
+           return (
+              <div> 
+                <button onClick={this.mount.bind(this)}>Mount</button> 
+                <button onClick={this.unmount.bind(this)}>Unmount</button> 
+                <div id="comp"></div> 
+              </div> 
+           )
+       }
+    }
+
+    ReactDOM.render(<Wrapper />,  
+                document.getElementById('userinfo'));
+  </script>
+ </body>
+</html>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>ReactJS and User List</title>
+
+   <script src="https://fb.me/react-0.14.3.js"></script>
+   <script src="https://fb.me/react-dom-0.14.3.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+   </script>
+ </head>
+ 
+ <body>
+    <p>User List</p>
+    <div id="container"></div>
+
+    <script type="text/babel">
+     class UserList extends React.Component {
+       constructor() {
+         super();
+         this.userList = [
+                  { name: 'Sara'}, 
+                  { name: 'Dave'}, 
+                  { name: 'John'}, 
+                  { name: 'Sally'}
+         ];
+       }
+
+       render() {
+         return (
+            <ul>
+              <ListOptions options={this.userList} />
+            </ul>
+         ) 
+       }
+    }
+    
+    class ListOptions extends React.Component {
+      render() {
+         return (
+          <div>
+            {this.props.options.map(function(option) {
+              return (
+                <li key={option.name}>{option.name}</li>
+              ) 
+           })}
+          </div>
+         ) 
+      }
+    }
+
+    ReactDOM.render(
+      <UserList/>,
+      document.getElementById('container')
+    )
+   </script>
+ </body>
+</html>
+ 

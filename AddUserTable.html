@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>ReactJS and User List</title>
+
+   <script src="https://fb.me/react-0.14.3.js"></script>
+   <script src="https://fb.me/react-dom-0.14.3.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+   </script>
+
+   <style>
+     .even { background-color: #fcc; } 
+     .odd  { background-color: #ccf; } 
+   </style>
+ </head>
+ 
+ <body>
+    <p>User List</p>
+    <div id="container"></div>
+
+    <script type="text/babel">
+     class UserList extends React.Component {
+       constructor() {
+         super();
+
+         this.userList = [
+                  'Sara', 'Dave', 'John', 'Sally'
+         ];
+
+         this.addUser = this.addUser.bind(this); 
+       }
+
+       componentDidMount() {
+         this.setState({user: ""}); 
+       }  
+
+       addUser() {
+         var user = this.refs.user.value;
+       //console.log("user = "+user); 
+
+         this.setState({user: user}); 
+         this.userList.push(user);
+       }  
+
+       render() {
+         return (
+            <div>
+              <table>
+                <thead>
+                  <tr> <th> NAME </th> </tr>
+                </thead>
+                <tbody>
+                  <ListOptions options={this.userList} />
+                </tbody>
+              </table>
+              <input ref="user" type="text" />
+              <button onClick={this.addUser}>Add User</button>
+            </div>
+         ) 
+       }
+    }
+    
+    class ListOptions extends React.Component {
+      render() {
+         return (
+          <div>
+            {this.props.options.map(function(option, index) {
+              return (
+               <tr>
+                <td className={index % 2 == 0 ? 'even' : 'odd'} key={index}>{option}</td>
+               </tr>
+              ) 
+           })}
+          </div>
+         ) 
+      }
+    }
+
+    ReactDOM.render(
+      <UserList/>,
+      document.getElementById('container')
+    )
+   </script>
+ </body>
+</html>
+ 

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>ReactJS and SVG</title>
+
+   <script src="https://fb.me/react-0.14.3.js"></script>
+   <script src="https://fb.me/react-dom-0.14.3.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+   </script>
+ </head>
+ 
+ <body>
+   <div id="content"></div>
+
+   <script type="text/babel">
+    class MySVG extends React.Component {
+      constructor() {
+         super();
+      }
+
+      componentWillMount() {
+         this.state = {cx: 0, cy: 0, width: 600, height: 400} 
+
+         this.propTypes = {
+             width:  React.PropTypes.number,
+             height: React.PropTypes.number
+           //other1: React.PropTypes.string,
+           //other2: React.PropTypes.array.isRequired,
+           //other3: React.PropTypes.object,
+           //other4: React.PropTypes.function
+         }
+      }
+
+      handleClick() {
+        console.log("text [click] = "+this.props.children);
+        this.render();
+      }
+      handleResize() {
+         console.log("text [resize] = "+this.props.children);
+      } 
+      componentDidMount() {
+         window.addEventListener('resize', this.handleResize);
+      }
+      render() {
+        var width = 600, height = 400;
+        var cx = Math.random()*width;
+        var cy = Math.random()*height;
+        var colors = ["red", "green", "blue"];
+        var index = Math.floor(Math.random()*colors.length);
+        var color = colors[index];
+
+        return (
+          <svg width="600" height="400">
+            <g>
+              <circle cx={cx}
+                      cy={cy}  
+                      r={this.props.r}  
+                      onClick={this.handleClick}  
+                      fill={color}/>
+            </g>
+          </svg>
+        )
+      }
+    }
+
+    var pause = 1000;
+    setInterval(function() {
+       ReactDOM.render(<div> 
+                        <MySVG cx="50" cy="50" r="30">red</MySVG>  
+                       </div>,
+                      document.getElementById('content'));
+    }, pause); 
+   </script>
+ </body>
+</html>
+ 

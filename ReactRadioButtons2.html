@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>ReactJS and Radio Buttons</title>
+
+   <script src="https://fb.me/react-0.14.3.js"></script>
+   <script src="https://fb.me/react-dom-0.14.3.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+   </script>
+ </head>
+ 
+ <body>
+    <div id="container"></div>
+
+    <script type="text/babel">
+     class RadioButtons extends React.Component {
+       render() {
+         return (
+           <div>
+             <RadioOptions value="One" /><br />
+             <RadioOptions value="Two" /><br />
+             <RadioOptions value="Three" /><br />
+           </div>
+         ) 
+       }
+     }
+    
+     class RadioOptions extends React.Component {
+       render() {
+         return (
+           <label>
+             <input type="radio" name="g1" 
+                    value={this.props.value}>{this.props.value} 
+             </input> 
+           </label>
+         ) 
+       }
+     }
+
+     ReactDOM.render(
+       <RadioButtons />,
+       document.getElementById('container')
+     )
+   </script>
+ </body>
+</html>
+ 

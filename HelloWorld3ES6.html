@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Hello World in ReactJS</title>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js">
+  </script>
+ </head>
+ 
+ <body>
+  <div id="hello"></div>
+  
+  <script type="text/babel">
+    // Equivalent ES6 class for Hello World 
+    class Hello extends React.Component {
+      constructor () { 
+         super(); 
+      }
+
+      render() { 
+        return <div>Hello World</div>
+      }
+    }
+
+    // ES6 class with a click handler 
+    class Hello2 extends React.Component {
+      constructor () { 
+         super(); 
+      }
+
+      render() { 
+        return <div onClick={this.handleClick}>Click Me</div>
+      }
+
+      handleClick() {
+      //console.log(this);
+      }
+    }
+
+    ReactDOM.render(<Hello/>,  document.getElementById('hello'));
+  </script>
+ </body>
+</html>
+
